@@ -6,3 +6,8 @@ Django web app to record chores and maintain a point system.
 Full django web app - User's can create accounts and keep their data on db.sqlite3, as well as being able to restart their passwords.
 
 It also calculates who is the next person to perform a chore based on the points applied.
+
+
+To allow passwords resets make sure to set upp your email here, on main/settings
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

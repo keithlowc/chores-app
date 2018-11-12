@@ -1,0 +1,90 @@
+{% load static %}
+
+<html>
+<head>
+	<title>DashBoard</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!--JS -->
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js">
+
+
+	<!-- FontAwesome CDN -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--My CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'board/main.css' %}">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container">
+			<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="{% url 'intro' %}">Dashboard</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id='navbarToggle'>
+			    	<div class="navbar-nav mr-auto">
+			    		<a class="nav-item nav-link" href="{% url 'intro' %}">Home</a>
+			    		<a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+			    		<a class="nav-item nav-link" href="{% url 'chores' %}">Chores</a>
+			    		<a class="nav-item nav-link" href="{% url 'chart' %}">Chart</a>
+			    	</div>
+			    	<div class="navbar-nav">
+			    		{% if user.is_authenticated %}
+			    			<a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+			    			<a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
+			    			<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+			    		{% else %}
+				    		<a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+				    		<a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+				    	{% endif %}
+			    	</div>
+			    </div>
+			</nav>
+		</div>
+	</header>
+	<main role="main" class="container">
+		<div class="row">
+			<div class="col-md-8">
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-{{ message.tags }}">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endif %}
+				{% block content %} {% endblock %}
+			</div>
+			<div class="col-md-4">
+				<div class="content-section">
+					<h3>Our Sidebar</h3>
+					<p class="text-muted">You can put any information here you'd like.
+						<ul class="list-group">
+							<li class="list-group-item list-group-item-light">Lastest Posts</li>
+							<li class="list-group-item list-group-item-light">Announcements</li>
+							<li class="list-group-item list-group-item-light">Calendar</li>
+							<li class="list-group-item list-group-item-light">Etc</li>
+						</ul>
+					</p>
+				</div>
+				{% block button %}{% endblock button %}
+			</div>
+		</div>
+		
+	</main>
+	<!-- JQUERY -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+	<script>
+
+	    $(document).ready(function(){
+	      {% block jquery %}{% endblock %}
+	    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "chores/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<div class="content-section">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Entering points for user: {{ user.username }}</legend>
+				{{ form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
+
+{% endblock %}
+
+{% block sidebar %}
+	<div class="content-section">
+	      <h3>Your current points are:</h3>
+	      <li class="list-group-item list-group-item-light"> {{ points }} </li>
+	</div>
+{% endblock sidebar %}
